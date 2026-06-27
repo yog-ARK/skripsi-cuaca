@@ -4,6 +4,22 @@ Aplikasi berbasis **Streamlit** yang dikembangkan sebagai implementasi penelitia
 
 ---
 
+## 🌐 Demo Online
+
+Aplikasi ini juga dapat diakses langsung melalui browser tanpa perlu instalasi, melalui tautan berikut:
+
+🔗 https://skripsiyoga.streamlit.app
+
+Aplikasi di-hosting menggunakan **Streamlit Community Cloud (tingkat gratis)**, sehingga aplikasi akan otomatis masuk ke mode **sleep (hibernasi)** apabila tidak ada pengunjung selama beberapa waktu. Hal ini bertujuan untuk menghemat resource server pada platform tersebut, bukan karena aplikasi mengalami error.
+
+Apabila saat membuka tautan di atas muncul halaman bertuliskan **"Zzz... This app has gone to sleep"**, aplikasi dapat dibangunkan kembali dengan langkah berikut:
+
+1. Klik tombol **"Yes, get this app back up!"** yang muncul pada halaman tersebut.
+2. Tunggu beberapa saat (biasanya kurang dari satu menit) hingga aplikasi selesai dimuat ulang.
+3. Aplikasi akan berjalan normal kembali setelah proses wake up selesai.
+
+---
+
 ## ✨ Fitur
 
 - 📊 Visualisasi data cuaca.
