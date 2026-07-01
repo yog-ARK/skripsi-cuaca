@@ -19,6 +19,7 @@ CUACA_VALID  = ["Badai Petir", "Berawan", "Cerah", "Embun", "Hujan", "Kabut Asap
 
 DATA_PATH    = BASE_DIR / "data_preprocessed.xlsx"
 DATA_BARU_PATH = BASE_DIR / "data_baru.xlsx"
+CONTOH_DATA_PATH = BASE_DIR / "contoh_data.xlsx"
 BACKUP_DIR   = BASE_DIR / "backup"
 BACKUP_FILES = [
     "data_preprocessed.xlsx",
@@ -38,6 +39,12 @@ def load_existing():
 def load_data_baru():
     if DATA_BARU_PATH.exists():
         return pd.read_excel(DATA_BARU_PATH)
+    return pd.DataFrame()
+
+
+def load_contoh_data():
+    if CONTOH_DATA_PATH.exists():
+        return pd.read_excel(CONTOH_DATA_PATH)
     return pd.DataFrame()
 
 
@@ -143,6 +150,31 @@ with tab1:
     # ── UPLOAD EXCEL ─────────────────────────────────────────────────────────────
     with input_tab2:
         st.subheader("Upload File Excel")
+
+        # ── CONTOH DATA ──────────────────────────────────────────────────────────
+        df_contoh = load_contoh_data()
+        with st.expander("📄 Lihat Contoh Data yang Bisa Diupload", expanded=True):
+            if not df_contoh.empty:
+                st.write(
+                    "Berikut contoh format data yang valid. "
+                    "Susun file Anda dengan kolom-kolom seperti ini sebelum diupload."
+                )
+                st.dataframe(df_contoh, use_container_width=True)
+
+                with open(CONTOH_DATA_PATH, "rb") as f:
+                    st.download_button(
+                        label="⬇️ Unduh Contoh Data",
+                        data=f,
+                        file_name="contoh_data.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        use_container_width=True,
+                    )
+            else:
+                st.warning(
+                    f"⚠️ File contoh tidak ditemukan di `{CONTOH_DATA_PATH.name}`. "
+                    "Letakkan file tersebut di direktori utama aplikasi agar contoh dapat ditampilkan."
+                )
+
         st.warning(
             "⚠️ **Persyaratan data yang diupload:**\n\n"
             "- Data **harus sudah bersih** — tidak boleh ada nilai kosong\n"

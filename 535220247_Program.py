@@ -395,8 +395,8 @@ if dc_variasi and len(display_df) > 0:
     st.dataframe(pivot_dc, use_container_width=True, height=300)
     st.caption(f"Total slot waktu dengan variasi: {len(pivot_dc)} slot")
 
-    # Pie chart: slot semua sama vs ada yang berbeda (dari SELURUH data df)
-    st.subheader("Proporsi Slot Waktu: Cuaca Seragam vs Bervariasi")
+    # Pie chart: slot semua sama dan ada yang berbeda (dari SELURUH data df)
+    st.subheader("Proporsi Slot Waktu: Cuaca Seragam dan Bervariasi")
     st.write(
         "Diagram lingkaran ini menunjukkan seberapa sering cuaca di seluruh wilayah Jakarta **sama persis** "
         "dibandingkan yang **berbeda-beda** pada waktu yang sama. "
@@ -470,7 +470,7 @@ for fi, tab in enumerate(viz_tabs[:-1]):
         actual_counts = pd.Series(actuals_filt).value_counts().reindex(WEATHER_LABELS, fill_value=0)
         pred_counts   = pd.Series(preds_filt).value_counts().reindex(WEATHER_LABELS, fill_value=0)
 
-        st.subheader(f"Aktual vs Prediksi — Fold {r['fold']}")
+        st.subheader(f"Aktual dan Prediksi — Fold {r['fold']}")
         st.write(
             "Diagram batang ini membandingkan jumlah data cuaca yang **benar-benar terjadi** (biru) "
             "dengan jumlah yang **diprediksi oleh model** (kuning) untuk setiap kategori cuaca. "
@@ -487,7 +487,7 @@ for fi, tab in enumerate(viz_tabs[:-1]):
         ax.set_xticks(x)
         ax.set_xticklabels([c.replace(' ', '\n') for c in WEATHER_LABELS], fontsize=8)
         ax.set_ylabel('Jumlah', fontsize=9)
-        ax.set_title(f'Aktual vs Prediksi per Kategori Cuaca — Fold {r["fold"]}',
+        ax.set_title(f'Aktual dan Prediksi per Kategori Cuaca — Fold {r["fold"]}',
                      fontsize=10, fontweight='bold')
         ax.legend(fontsize=9)
         ax.spines['top'].set_visible(False)
@@ -521,7 +521,7 @@ with viz_tabs[-1]:
     if len(df_semua_fold) == 0:
         st.warning("Tidak ada data yang sesuai dengan filter.")
     else:
-        st.subheader("Aktual vs Prediksi — Semua Fold")
+        st.subheader("Aktual dan Prediksi — Semua Fold")
         st.write(
             "Diagram ini adalah gabungan dari seluruh 5 pengujian fold. "
             "Karena semua data uji digabung, ini adalah gambaran paling menyeluruh tentang "
@@ -539,7 +539,7 @@ with viz_tabs[-1]:
         ax.set_xticks(x)
         ax.set_xticklabels([c.replace(' ', '\n') for c in WEATHER_LABELS], fontsize=8)
         ax.set_ylabel('Jumlah', fontsize=9)
-        ax.set_title('Aktual vs Prediksi per Kategori Cuaca — Semua Fold',
+        ax.set_title('Aktual dan Prediksi per Kategori Cuaca — Semua Fold',
                      fontsize=10, fontweight='bold')
         ax.legend(fontsize=9)
         ax.spines['top'].set_visible(False)
@@ -710,8 +710,8 @@ for fi, tab in enumerate(fold_tabs[:-1]):
             st.dataframe(pivot_pred, use_container_width=True, height=280)
             st.caption(f"Total slot waktu prediksi bervariasi: {len(pivot_pred)} slot")
 
-            # Pie chart: slot prediksi semua sama vs ada yang berbeda (dari fold ini)
-            st.subheader(f"Proporsi Slot Waktu: Prediksi Seragam vs Bervariasi — Fold {r['fold']}")
+            # Pie chart: slot prediksi semua sama dan ada yang berbeda (dari fold ini)
+            st.subheader(f"Proporsi Slot Waktu: Prediksi Seragam dan Bervariasi — Fold {r['fold']}")
             st.write(
                 "Diagram lingkaran ini menunjukkan seberapa sering model memprediksi cuaca yang "
                 "**sama di semua wilayah** dibandingkan yang **berbeda-beda** pada waktu yang sama. "
@@ -1018,9 +1018,9 @@ comp_show = comp_df[[
 st.dataframe(comp_show, use_container_width=True, height=350)
 st.caption(f"Menampilkan {len(comp_df)} baris hasil klasifikasi.")
 
-# ── Visualisasi Aktual vs Prediksi ──────────────────────────────────────────
+# ── Visualisasi Aktual dam Prediksi ──────────────────────────────────────────
 if len(comp_df) > 0:
-    st.subheader("📊 Heatmap Distribusi Aktual vs Prediksi")
+    st.subheader("📊 Heatmap Distribusi Aktual dan Prediksi")
     st.write(
         "Heatmap ini menampilkan pola kesalahan prediksi secara visual berdasarkan filter yang aktif. "
         "**Baris** adalah kondisi cuaca yang sebenarnya, **kolom** adalah hasil prediksi model. "
@@ -1031,7 +1031,7 @@ if len(comp_df) > 0:
         "pola kesalahan di lokasi, waktu, atau kategori cuaca tertentu secara lebih mendalam."
     )
 
-    # Heatmap Aktual vs Prediksi (confusion-style)
+    # Heatmap Aktual dan Prediksi (confusion-style)
     if True:
         label_to_idx = {l: i for i, l in enumerate(WEATHER_LABELS)}
         cm_all = np.zeros((len(WEATHER_LABELS), len(WEATHER_LABELS)), dtype=int)
@@ -1049,7 +1049,7 @@ if len(comp_df) > 0:
         ax.set_yticklabels(WEATHER_LABELS, fontsize=7)
         ax.set_xlabel('Prediksi', fontsize=9, fontweight='bold')
         ax.set_ylabel('Aktual', fontsize=9, fontweight='bold')
-        ax.set_title('Heatmap Distribusi Aktual vs Prediksi', fontsize=10, fontweight='bold')
+        ax.set_title('Heatmap Distribusi Aktual dan Prediksi', fontsize=10, fontweight='bold')
         max_val = cm_all.max() if cm_all.max() > 0 else 1
         for i in range(len(WEATHER_LABELS)):
             for j in range(len(WEATHER_LABELS)):
